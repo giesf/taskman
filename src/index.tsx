@@ -305,8 +305,9 @@ app.get('/', (c) => {
           <tbody>
             {todos.filter(todo => {
               if (searchFilter) {
-                if (searchFilter.length == 1 && todo.priority == searchFilter.toUpperCase()) {
-                  return true
+                if (searchFilter.length == 1) {
+
+                  return todo.priority == searchFilter.toUpperCase()
                 }
                 return todo.body.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase())
               }
