@@ -232,7 +232,7 @@ app.get('/', (c) => {
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous"></link>
     </head>
     <body>
-      <div class="d-flex px-2 py-4 ">
+      <div class="d-flex px-2 py-4 position-fixed top-0 left-0 bg-white w-100 z-3">
 
 
         <div class="form-floating-with-icon">
@@ -250,7 +250,7 @@ app.get('/', (c) => {
           Archive done <i class="bi bi-archive"></i>
         </button>
       </div>
-      <div class="px-2">
+      <div class="px-2" style={"padding-top: 80pt"}>
         <table class="table">
           <thead>
             <tr>
