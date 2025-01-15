@@ -79,19 +79,57 @@ export const TodoRow: FC<{ todo: Todo }> = ({ todo }) => {
   const vals = JSON.stringify({ body: todo.body, priority: todo.priority })
   const figmaLink = todo.attributes.find(a => a.key = "figma")?.value
   return <tr class="todo">
-    <td style={"width: 2rem"}><input type="checkbox" name="shouldBeDone" hx-vals={vals} hx-post="/toggle-done" hx-target="closest .todo" hx-swap="outerHTML" checked={todo?.isDone} /></td>
-    <td style={"width: 3rem"}><select name="newPriority" hx-vals={vals} hx-post="/set-priority" hx-target="body">
-      <option value="">-</option>
-      {"ABCDEFGHIJKLMNOP".split("").map(char => <option value={char} selected={char == todo?.priority}>{char}</option>)}
-    </select></td>
+    <td style={"width: 2rem"}>
+      <input type="checkbox"
+        name="shouldBeDone"
+        hx-vals={vals}
+        hx-post="/toggle-done"
+        hx-target="closest .todo"
+        hx-swap="outerHTML"
+        checked={todo?.isDone} />
+    </td>
+    <td style={"width: 3rem"}>
+      <select name="newPriority" hx-vals={vals} hx-post="/set-priority" hx-target="body">
+        <option value="">-</option>
+        {"ABCDEFGHIJKLMNOP".split("").map(char => <option
+          value={char}
+          selected={char == todo?.priority}>{char}</option>)}
+      </select></td>
     <td >
-      <textarea style={"border:0;width:100%; height:100%;" + (todo.isDone ? "text-decoration: line-through" : "")} hx-trigger="change" hx-post="/update-body" hx-swap="outerHTML" hx-vals={vals} name="newBody" hx-target="closest .todo" >
+      <textarea style={"border:0;width:100%; height:100%;" + (todo.isDone ? "text-decoration: line-through" : "")}
+        hx-trigger="change"
+        hx-post="/update-body"
+        hx-swap="outerHTML"
+        hx-vals={vals}
+        name="newBody"
+        hx-target="closest .todo" >
         {todo?.body}
       </textarea></td>
-    {figmaLink ? <td hx-vals={vals} hx-prompt="Enter figma link" hx-target="closest .todo" hx-swap="outerHTML" hx-post="/add-figma" hx-trigger="contextmenu" style="width: 8rem;"> <a class="btn btn-outline-primary border-0 m-1" href={'https://www.figma.com/design/zNVxc3pmP7T96YecpR6TJS/Busch-Protective?node-id=' + figmaLink} target="_blank">Open <i class="bi bi-link"></i></a></td> : <td style={"width: 8rem"}>:
-      <button type="button" hx-vals={vals} class="btn btn-outline-primary border-0 m-1" hx-prompt="Enter figma link" hx-target="closest .todo" hx-swap="outerHTML" hx-post="/add-figma">
-        Add <i class="bi bi-plus"></i>
-      </button></td>}
+    {figmaLink ?
+      <td hx-vals={vals}
+        hx-prompt="Enter figma link"
+        hx-target="closest .todo"
+        hx-swap="outerHTML"
+        hx-post="/add-figma"
+        hx-trigger="contextmenu"
+        style="width: 8rem;">
+        <a
+          class="btn btn-outline-primary border-0 m-1"
+          href={'https://www.figma.com/design/zNVxc3pmP7T96YecpR6TJS/Busch-Protective?node-id=' + figmaLink}
+          target="_blank">Open <i class="bi bi-link"></i></a>
+      </td>
+      :
+      <td style={"width: 8rem"}>
+        <button
+          type="button"
+          hx-vals={vals}
+          class="btn btn-outline-primary border-0 m-1"
+          hx-prompt="Enter figma link"
+          hx-target="closest .todo"
+          hx-swap="outerHTML"
+          hx-post="/add-figma">
+          Add <i class="bi bi-plus"></i>
+        </button></td>}
   </tr>
 }
 app.use(
@@ -267,7 +305,7 @@ app.get('/', (c) => {
           <tbody>
             {todos.filter(todo => {
               if (searchFilter) {
-                return todo.body.includes(searchFilter)
+                return todo.body.toLocaleLowerCase().includes(searchFilter.toLocaleLowerCase())
               }
               return true
             }).map(todo =>
