@@ -317,7 +317,7 @@ app.get('/', (c) => {
             )}
             <tr><td colspan={4}>
               <div class="form-floating form-floating-outlined">
-                <input type="text" name="Forderung" hx-post="/add" hx-target="body" hx-trigger="change" class="form-control" id="newtodo"
+                <input type="text" name="Forderung" hx-post="/add" hx-target="body" hx-trigger="keyup[key=='Enter']" class="form-control" id="newtodo"
                   placeholder="Forderung...." autocomplete="off" />
                 <label for="newtodo">Forderung hinzufügen</label>
               </div>
