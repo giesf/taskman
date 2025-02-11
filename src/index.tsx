@@ -78,6 +78,7 @@ function dumpToDone(todos: Todo[]) {
 export const TodoRow: FC<{ todo: Todo }> = ({ todo }) => {
   const vals = JSON.stringify({ body: todo.body, priority: todo.priority })
   const figmaLink = todo.attributes.find(a => a.key = "figma")?.value
+  const size = todo.attributes.find(a => a.key == 'size')?.value || ""
   return <tr class="todo">
     <td style={"width: 2rem"}>
       <input type="checkbox"
@@ -100,7 +101,7 @@ export const TodoRow: FC<{ todo: Todo }> = ({ todo }) => {
         <option value="">-</option>
         {"SML".split("").map(char => <option
           value={char}
-          selected={(todo?.attributes.find(a => a.key == 'size')?.value || "-") == char}>{char}</option>)}
+          selected={(size) == char}>{char}</option>)}
       </select></td>
     <td >
       <textarea style={"border:0;width:100%; height:100%;" + (todo.isDone ? "text-decoration: line-through" : "")}
