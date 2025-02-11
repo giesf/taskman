@@ -326,10 +326,11 @@ app.get('/', (c) => {
           Archive done <i class="bi bi-archive"></i>
         </button>
       </div>
-      <div class="row">
-        <p>{JSON.stringify({ smallTodos, largeTodos, mediumTodos })}</p>
-      </div>
-      <div class="px-2" style={"padding-top: 80pt"}>
+
+      <div class="column px-2" style={"padding-top: 80pt"}>
+        <div class="row">
+          <p>{JSON.stringify({ smallTodos, largeTodos, mediumTodos })}</p>
+        </div>
         <table class="table">
           <thead>
             <tr>
