@@ -296,6 +296,7 @@ app.get('/', (c) => {
   const mediumTodos = todos.filter(to => to.attributes.some(a => a.key == "size" && a.value == "M")).length
   const largeTodos = todos.filter(to => to.attributes.some(a => a.key == "size" && a.value == "L")).length
 
+  const days = smallTodos / 4 + mediumTodos / 2 + largeTodos
   return c.html(<html>
     <head>
       <title>taskman v0.0.1</title>
@@ -329,7 +330,7 @@ app.get('/', (c) => {
 
       <div class="column px-2" style={"padding-top: 80pt"}>
         <div class="row">
-          <p>{JSON.stringify({ smallTodos, largeTodos, mediumTodos })}</p>
+          <p>{JSON.stringify({ smallTodos, largeTodos, mediumTodos, days })}</p>
         </div>
         <table class="table">
           <thead>
