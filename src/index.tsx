@@ -95,6 +95,13 @@ export const TodoRow: FC<{ todo: Todo }> = ({ todo }) => {
           value={char}
           selected={char == todo?.priority}>{char}</option>)}
       </select></td>
+    <td style={"width: 3rem"}>
+      <select name="newSize" hx-vals={vals} hx-post="/set-size" hx-target="body">
+        <option value="">-</option>
+        {"SML".split("").map(char => <option
+          value={char}
+          selected={(todo?.attributes.find(a => a.key == 'size') || "-") == char}>{char}</option>)}
+      </select></td>
     <td >
       <textarea style={"border:0;width:100%; height:100%;" + (todo.isDone ? "text-decoration: line-through" : "")}
         hx-trigger="change"
@@ -149,6 +156,30 @@ app.post('/set-priority', async (c) => {
     }
     return t
   })
+  todos = nextTodos
+  saveTodos()
+
+  return c.redirect("/")
+
+})
+app.post('/set-size', async (c) => {
+  const body = await c.req.parseBody();
+  const newSize = body.newSize
+  assert(typeof newSize == "string")
+  let nextTodo: Todo | undefined;
+
+  const nextTodos = todos.map(t => {
+    if (t.body == body.body && t.priority == body.priority) {
+
+      nextTodo = {
+        ...t, attributes: [...t.attributes.filter(a => a.key != "size"), { key: "size", value: newSize }]
+      }
+      assert(nextTodo)
+      return nextTodo
+    }
+    return t
+  })
+  assert(nextTodo)
   todos = nextTodos
   saveTodos()
 
@@ -296,6 +327,7 @@ app.get('/', (c) => {
             <tr>
               <th>Erledigt</th>
               <th>Priorität</th>
+              <th>Größe</th>
 
               <th>Forderung</th>
               <th>Figma-Link</th>
