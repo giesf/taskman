@@ -292,6 +292,10 @@ app.get('/', (c) => {
 
   const searchFilter = c.req.query("q")
 
+  const smallTodos = todos.filter(to => to.attributes.some(a => a.key == "size" && a.value == "S")).length
+  const mediumTodos = todos.filter(to => to.attributes.some(a => a.key == "size" && a.value == "M")).length
+  const largeTodos = todos.filter(to => to.attributes.some(a => a.key == "size" && a.value == "L")).length
+
   return c.html(<html>
     <head>
       <title>taskman v0.0.1</title>
@@ -321,6 +325,9 @@ app.get('/', (c) => {
         <button type="button" hx-post="/cleanup" hx-target="body" class="btn btn-outline-primary border-0 m-1 flex-shrink-0">
           Archive done <i class="bi bi-archive"></i>
         </button>
+      </div>
+      <div class="row">
+        <p>{JSON.stringify({ smallTodos, largeTodos, mediumTodos })}</p>
       </div>
       <div class="px-2" style={"padding-top: 80pt"}>
         <table class="table">
