@@ -100,7 +100,7 @@ export const TodoRow: FC<{ todo: Todo }> = ({ todo }) => {
         <option value="">-</option>
         {"SML".split("").map(char => <option
           value={char}
-          selected={(todo?.attributes.find(a => a.key == 'size') || "-") == char}>{char}</option>)}
+          selected={(todo?.attributes.find(a => a.key == 'size')?.value || "-") == char}>{char}</option>)}
       </select></td>
     <td >
       <textarea style={"border:0;width:100%; height:100%;" + (todo.isDone ? "text-decoration: line-through" : "")}
