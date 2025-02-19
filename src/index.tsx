@@ -458,7 +458,7 @@ app.get("/", (c) => {
             </div>
 
             <div class="column px-2" style={"padding-top: 80pt"}>
-              <progress max={allN} value={doneN}></progress>
+              <progress class="w-100" max={allN} value={doneN}></progress>
 
               <div class="d-flex w-100 justify-content-between">
                 <p>
