@@ -400,6 +400,7 @@ app.get("/", (c) => {
       <body>
         {showDone && (
           <div style="position:fixed;top:0;left:0;width: 100vw;height:100vh;overflow-y: scroll;z-index:2000;background-color: white;">
+            <a href="/">X Close Archive</a>
             <table class="table">
               <thead>
                 <tr>
