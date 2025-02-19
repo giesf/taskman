@@ -114,7 +114,7 @@ export const TodoRow: FC<{ todo: Todo; readOnly?: boolean }> = ({
   return (
     <tr
       class="todo"
-      style={readOnly ? "pointer-events: none; opacity:0.8;" : ""}
+      style={readOnly ? "pointer-events: none; opacity:0.9;" : ""}
     >
       <td style={"width: 2rem"}>
         <input
@@ -399,7 +399,7 @@ app.get("/", (c) => {
       </head>
       <body>
         {showDone && (
-          <div style="position:fixed;top:0;left:0;width: 100vw;height:100vh;">
+          <div style="position:fixed;top:0;left:0;width: 100vw;height:100vh;z-index:2000;background-color: white;">
             <table class="table">
               <thead>
                 <tr>
