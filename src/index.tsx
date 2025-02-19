@@ -456,9 +456,10 @@ app.get("/", (c) => {
                 Archive done <i class="bi bi-archive"></i>
               </button>
             </div>
-            <progress max={allN} value={doneN}></progress>
 
             <div class="column px-2" style={"padding-top: 80pt"}>
+              <progress max={allN} value={doneN}></progress>
+
               <div class="d-flex w-100 justify-content-between">
                 <p>
                   {JSON.stringify({
