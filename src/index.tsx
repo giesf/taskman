@@ -454,7 +454,7 @@ app.get("/", (c) => {
             </div>
 
             <div class="column px-2" style={"padding-top: 80pt"}>
-              <div class="row space-between">
+              <div class="d-flex w-100 justify-content-between">
                 <p>
                   {JSON.stringify({
                     smallTodos,
