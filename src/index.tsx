@@ -454,7 +454,7 @@ app.get("/", (c) => {
             </div>
 
             <div class="column px-2" style={"padding-top: 80pt"}>
-              <div class="row">
+              <div class="row space-between">
                 <p>
                   {JSON.stringify({
                     smallTodos,
@@ -464,6 +464,7 @@ app.get("/", (c) => {
                     weeks,
                   })}
                 </p>
+                <a href="?showDone=y">Show Archive</a>
               </div>
               <table class="table">
                 <thead>
