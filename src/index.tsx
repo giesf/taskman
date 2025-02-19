@@ -378,6 +378,10 @@ app.get("/", (c) => {
 
   const days = smallTodos / 4 + mediumTodos / 2 + largeTodos;
   const weeks = days / 4;
+  const doneTodos = getDoneTodos();
+
+  const doneN = doneTodos.length;
+  const allN = doneN + todos.length;
   return c.html(
     <html>
       <head>
@@ -413,7 +417,7 @@ app.get("/", (c) => {
                 </tr>
               </thead>
               <tbody>
-                {getDoneTodos().map((t) => (
+                {doneTodos.map((t) => (
                   <TodoRow todo={t} readOnly />
                 ))}
               </tbody>
@@ -452,6 +456,7 @@ app.get("/", (c) => {
                 Archive done <i class="bi bi-archive"></i>
               </button>
             </div>
+            <progress max={allN} value={doneN} />
 
             <div class="column px-2" style={"padding-top: 80pt"}>
               <div class="d-flex w-100 justify-content-between">
