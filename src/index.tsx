@@ -399,7 +399,7 @@ app.get("/", (c) => {
       </head>
       <body>
         {showDone && (
-          <div style="position:fixed;top:0;left:0;width: 100vw;height:100vh;z-index:2000;background-color: white;">
+          <div style="position:fixed;top:0;left:0;width: 100vw;height:100vh;overflow-y: scroll;z-index:2000;background-color: white;">
             <table class="table">
               <thead>
                 <tr>
@@ -419,98 +419,101 @@ app.get("/", (c) => {
             </table>
           </div>
         )}
+        {!showDone && (
+          <>
+            <div class="d-flex px-2 py-4 position-fixed top-0 left-0 bg-white w-100 z-3">
+              <div class="form-floating-with-icon">
+                <div class="form-floating form-floating-outlined">
+                  <input
+                    type="search"
+                    class="form-control"
+                    id="search"
+                    name="q"
+                    hx-get="/"
+                    hx-target="body"
+                    placeholder="Filter..."
+                    autocomplete="off"
+                    value={searchFilter}
+                  />
+                  <label for="search">Filter...</label>
+                </div>
+                <span class="prepend">
+                  <i class="bi bi-filter"></i>
+                </span>
+              </div>
 
-        <div class="d-flex px-2 py-4 position-fixed top-0 left-0 bg-white w-100 z-3">
-          <div class="form-floating-with-icon">
-            <div class="form-floating form-floating-outlined">
-              <input
-                type="search"
-                class="form-control"
-                id="search"
-                name="q"
-                hx-get="/"
+              <button
+                type="button"
+                hx-post="/cleanup"
                 hx-target="body"
-                placeholder="Filter..."
-                autocomplete="off"
-                value={searchFilter}
-              />
-              <label for="search">Filter...</label>
+                class="btn btn-outline-primary border-0 m-1 flex-shrink-0"
+              >
+                Archive done <i class="bi bi-archive"></i>
+              </button>
             </div>
-            <span class="prepend">
-              <i class="bi bi-filter"></i>
-            </span>
-          </div>
 
-          <button
-            type="button"
-            hx-post="/cleanup"
-            hx-target="body"
-            class="btn btn-outline-primary border-0 m-1 flex-shrink-0"
-          >
-            Archive done <i class="bi bi-archive"></i>
-          </button>
-        </div>
+            <div class="column px-2" style={"padding-top: 80pt"}>
+              <div class="row">
+                <p>
+                  {JSON.stringify({
+                    smallTodos,
+                    largeTodos,
+                    mediumTodos,
+                    days,
+                    weeks,
+                  })}
+                </p>
+              </div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Erledigt</th>
+                    <th>Priorität</th>
+                    <th>Größe</th>
 
-        <div class="column px-2" style={"padding-top: 80pt"}>
-          <div class="row">
-            <p>
-              {JSON.stringify({
-                smallTodos,
-                largeTodos,
-                mediumTodos,
-                days,
-                weeks,
-              })}
-            </p>
-          </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Erledigt</th>
-                <th>Priorität</th>
-                <th>Größe</th>
-
-                <th>Forderung</th>
-                <th>Figma-Link</th>
-              </tr>
-            </thead>
-            <tbody>
-              {todos
-                .filter((todo) => {
-                  if (searchFilter) {
-                    if (searchFilter.length == 1) {
-                      return todo.priority == searchFilter.toUpperCase();
-                    }
-                    return todo.body
-                      .toLocaleLowerCase()
-                      .includes(searchFilter.toLocaleLowerCase());
-                  }
-                  return true;
-                })
-                .map((todo) => (
-                  <TodoRow todo={todo} />
-                ))}
-              <tr>
-                <td colspan={4}>
-                  <div class="form-floating form-floating-outlined">
-                    <input
-                      type="text"
-                      name="Forderung"
-                      hx-post="/add"
-                      hx-target="body"
-                      hx-trigger="keyup[key=='Enter']"
-                      class="form-control"
-                      id="newtodo"
-                      placeholder="Forderung...."
-                      autocomplete="off"
-                    />
-                    <label for="newtodo">Forderung hinzufügen</label>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                    <th>Forderung</th>
+                    <th>Figma-Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {todos
+                    .filter((todo) => {
+                      if (searchFilter) {
+                        if (searchFilter.length == 1) {
+                          return todo.priority == searchFilter.toUpperCase();
+                        }
+                        return todo.body
+                          .toLocaleLowerCase()
+                          .includes(searchFilter.toLocaleLowerCase());
+                      }
+                      return true;
+                    })
+                    .map((todo) => (
+                      <TodoRow todo={todo} />
+                    ))}
+                  <tr>
+                    <td colspan={4}>
+                      <div class="form-floating form-floating-outlined">
+                        <input
+                          type="text"
+                          name="Forderung"
+                          hx-post="/add"
+                          hx-target="body"
+                          hx-trigger="keyup[key=='Enter']"
+                          class="form-control"
+                          id="newtodo"
+                          placeholder="Forderung...."
+                          autocomplete="off"
+                        />
+                        <label for="newtodo">Forderung hinzufügen</label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </>
+        )}
         <script
           src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
           integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
