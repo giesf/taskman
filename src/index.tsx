@@ -460,7 +460,12 @@ app.get("/", (c) => {
                     mediumTodos,
                     days,
                     weeks,
-                  })}
+                  })
+                    .replaceAll('"', "")
+                    .replaceAll("{", "")
+                    .replaceAll("}", "")
+                    .replaceAll(":", ": ")
+                    .replaceAll(",", ", ")}
                 </p>
                 <a href="?showDone=y">Show Archive</a>
               </div>
