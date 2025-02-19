@@ -114,7 +114,7 @@ export const TodoRow: FC<{ todo: Todo; readOnly?: boolean }> = ({
   return (
     <tr
       class="todo"
-      style={readOnly ? "pointer-events: none; opacity:0.9;" : ""}
+      style={readOnly ? "pointer-events: none; opacity:0.8;" : ""}
     >
       <td style={"width: 2rem"}>
         <input
