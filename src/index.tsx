@@ -80,15 +80,7 @@ function getDoneTodos() {
   const fileContents = readFileSync(donePath).toString();
 
   const lines = fileContents.split("\n").filter(Boolean);
-  return lines
-    .map((l) => parseTodo(l))
-    .filter(Boolean)
-    .sort((a, b) => {
-      assert(a);
-      assert(b);
-
-      return (a.priority || "Z").localeCompare(b.priority || "Z");
-    }) as Todo[];
+  return lines.map((l) => parseTodo(l)).filter(Boolean) as Todo[];
 }
 
 function saveTodos() {
